@@ -3,7 +3,7 @@ package com.world.protester.tools;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClientInstance {
+public class RetrofitService {
 
     private static Retrofit retrofit;
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
@@ -16,6 +16,10 @@ public class RetrofitClientInstance {
                     .build();
         }
         return retrofit;
+    }
+
+    public static <S> S cteateService(Class<S> serviceClass) {
+        return retrofit.create(serviceClass);
     }
 
 }

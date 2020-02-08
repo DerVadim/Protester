@@ -108,4 +108,7 @@
 
     <string name="fragment_city_title">Выбор города</string>
     <string name="fragment_city_toas">Ваш город </string>
+
+
+    <string name="common_internet_connection_nf">Интернет соединение отсутствует!</string>
 </resources>

@@ -4,57 +4,72 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.world.protester.ProtesterApplication;
 import com.world.protester.R;
 import com.world.protester.adapters.AdapterNews;
+import com.world.protester.tools.SharedPreferencesManager;
+import com.world.protester.tools.ToastManager;
+import com.world.protester.wraps.NewsWrap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private RecyclerView recyclerView;
+    private ArrayList<NewsWrap> mNews = new ArrayList<>();
+    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private String[] news = {"Cheese", "Pepperoni", "Black Olives", "++++++"};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+
+        NewsViewModel mNewsViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+        mNewsViewModel.init(SharedPreferencesManager.getCurrentCity(this.getActivity()));
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        recyclerView = root.findViewById(R.id.news_recycler_view);
+        this.mRecyclerView = root.findViewById(R.id.news_recycler_view);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
+        /**
+         * Send request  if device has internet connection
+         */
+        if(ProtesterApplication.getConnectionStatus(this.getContext())){
+            mNewsViewModel.getNewsRepository().observe(this, new Observer<List<NewsWrap>>() {
+                @Override
+                public void onChanged(@Nullable List<NewsWrap> news) {
+                    mNews.addAll(news);
+                }
+            });
+        }else{
+            ToastManager.getInstance().showToastById
+                    (R.string.common_internet_connection_nf,this.getContext());
+        }
 
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new AdapterNews(news);
-        recyclerView.setAdapter(mAdapter);
-
-
-
-
+        setupRecyclerView();
 
         return root;
     }
+
+    private void setupRecyclerView() {
+        if (this.mAdapter == null) {
+            this.mAdapter = new AdapterNews(mNews);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setNestedScrollingEnabled(true);
+        } else {
+            this.mAdapter.notifyDataSetChanged();
+        }
+    }
+
+
 }

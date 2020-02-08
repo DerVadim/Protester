@@ -12,18 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.world.protester.NewsActivity;
 import com.world.protester.R;
+import com.world.protester.wraps.NewsWrap;
+
+import java.util.ArrayList;
 
 public class AdapterNews extends RecyclerView.Adapter<AdapterNews.NewsViewHolder>  {
 
-    private String[] mDataset;
+    private ArrayList<NewsWrap> mDataset;
 
-    public static class NewsViewHolder extends RecyclerView.ViewHolder {
+    static class NewsViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvNews;
-        public ImageView ivNews;
-        public RelativeLayout rlNews;
+        TextView tvNews;
+        ImageView ivNews;
+        RelativeLayout rlNews;
 
-        public NewsViewHolder(View v) {
+        NewsViewHolder(View v) {
             super(v);
 
             tvNews = v.findViewById(R.id.tvNewsTitle);
@@ -32,7 +35,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.NewsViewHolder
         }
     }
 
-    public AdapterNews(String[] myDataset) {
+    public AdapterNews(ArrayList<NewsWrap> myDataset) {
         mDataset = myDataset;
     }
 
@@ -47,14 +50,14 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.NewsViewHolder
     public void onBindViewHolder(final NewsViewHolder holder, int position) {
 
 
-        final String title = mDataset[position];
+        final NewsWrap newsWrap = mDataset.get(position);
 
-        holder.tvNews.setText(title);
+        holder.tvNews.setText(newsWrap.getTitle());
         holder.rlNews.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(holder.rlNews.getContext(), NewsActivity.class);
-                intent.putExtra("title",title);
-                intent.putExtra("text",title);
+                intent.putExtra("title",newsWrap.getTitle());
+                intent.putExtra("text",newsWrap.getText());
                 holder.rlNews.getContext().startActivity(intent);
             }
         });
@@ -63,7 +66,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.NewsViewHolder
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
 }

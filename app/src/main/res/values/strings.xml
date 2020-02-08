@@ -108,4 +108,7 @@
 
     <string name="fragment_city_title">City selection</string>
     <string name="fragment_city_toas">Your city is </string>
+
+    <string name="common_internet_connection_nf">Internet connection is not found!</string>
+
 </resources>
