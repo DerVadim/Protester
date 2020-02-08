@@ -1,0 +1,29 @@
+[
+  {
+    "title": "test_title1",
+    "text": "test_text1",
+    "data_start": "2020-11-12",
+    "author": "Max",
+    "permission": "1",
+    "photo": "https://meduza.io/image/attachment_overrides/images/004/948/060/ov/G9mxqfvR80j9oo7zQL_VBw.jpg",
+    "type": "1"
+  },
+  {
+    "title": "test_title2",
+    "text": "test_text21",
+    "data_start": "2020-9-12",
+    "author": "Nik",
+    "permission": "0",
+    "photo": "https://meduza.io/image/attachment_overrides/images/004/948/060/ov/G9mxqfvR80j9oo7zQL_VBw.jpg",
+    "type": "2"
+  },
+  {
+    "title": "test_title3",
+    "text": "test_text3",
+    "data_start": "2021-9-12",
+    "author": "Sophia",
+    "permission": "0",
+    "photo": "https://meduza.io/image/attachment_overrides/images/004/948/060/ov/G9mxqfvR80j9oo7zQL_VBw.jpg",
+    "type": "2"
+  }
+]
