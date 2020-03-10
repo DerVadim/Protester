@@ -3,9 +3,7 @@ package com.world.protester.tools;
 import androidx.lifecycle.MutableLiveData;
 
 import com.world.protester.wraps.NewsWrap;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,6 +20,7 @@ public class NewsRepository {
     }
 
     private GetDataService newsApi;
+
 
     public NewsRepository(){
         newsApi = RetrofitService.cteateService(GetDataService.class);

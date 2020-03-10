@@ -19,7 +19,6 @@ public class NewsViewModel extends ViewModel {
         }
         this.mNewsRepository = NewsRepository.getInstance();
         this.mMutableLiveData = this.mNewsRepository.getNews(city);
-
     }
 
     public LiveData<List<NewsWrap>> getNewsRepository() {

@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,28 +29,34 @@ public class CityFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
+        this.toolsViewModel =
                 ViewModelProviders.of(this).get(CityViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        recyclerView = root.findViewById(R.id.rvCity);
-        recyclerView.setHasFixedSize(true);
+        this.recyclerView = root.findViewById(R.id.rvCity);
+        this.recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        this.recyclerView.setLayoutManager(layoutManager);
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final NavController navController = Navigation.findNavController(view);
 
         String currentCity = SharedPreferencesManager.getCurrentCity(this.getContext());
+        if(currentCity!=null){
+            navController.navigate(R.id.nav_home);
+        }else{
+            SharedPreferencesManager.setCurrentCity(this.getContext(),citys[0]);
+            currentCity=citys[0];
+        }
 
-        mAdapter = new AdaptersCitys(citys,currentCity,this.getContext());
-        recyclerView.setAdapter(mAdapter);
-
-        /*final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        return root;
+        this.mAdapter = new AdaptersCitys(citys,currentCity,this.getContext());
+        this.recyclerView.setAdapter(this.mAdapter);
     }
 }
