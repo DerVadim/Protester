@@ -9,24 +9,21 @@ public class NewsWrap {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("text")
+    @SerializedName("content")
     @Expose
-    private String text;
-    @SerializedName("data_start")
+    private String content;
+    @SerializedName("created_on")
     @Expose
-    private String dataStart;
-    @SerializedName("author")
+    private String createdOn;
+    @SerializedName("status")
     @Expose
-    private String author;
-    @SerializedName("permission")
+    private Integer status;
+    @SerializedName("image")
     @Expose
-    private String permission;
-    @SerializedName("photo")
-    @Expose
-    private String photo;
+    private String image;
     @SerializedName("type")
     @Expose
-    private String type;
+    private Integer type;
 
     public String getTitle() {
         return title;
@@ -36,52 +33,45 @@ public class NewsWrap {
         this.title = title;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getDataStart() {
-        return dataStart;
+    public String getCreatedOn() {
+        return createdOn;
     }
 
-    public void setDataStart(String dataStart) {
-        this.dataStart = dataStart;
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public String getAuthor() {
-        return author;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getImage() {
+        return image;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
+
 
 }
