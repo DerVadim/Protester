@@ -8,6 +8,8 @@ import android.util.Log;
 
 public class ProtesterApplication extends Application {
 
+    public static final String DATA_FLAG_SPLASH = "from_splash";
+
     public ProtesterApplication() {
         super();
     }

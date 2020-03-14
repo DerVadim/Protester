@@ -23,6 +23,7 @@ import com.world.protester.wraps.NewsWrap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -42,13 +43,8 @@ public class HomeFragment extends Fragment {
         /**
          * Send request  if device has internet connection
          */
-        if(ProtesterApplication.getConnectionStatus(this.getContext())){
-            mNewsViewModel.getNewsRepository().observe(this, new Observer<List<NewsWrap>>() {
-                @Override
-                public void onChanged(@Nullable List<NewsWrap> news) {
-                    mNews.addAll(news);
-                }
-            });
+        if(ProtesterApplication.getConnectionStatus(Objects.requireNonNull(this.getContext()))){
+            mNewsViewModel.getNewsRepository().observe(this, news -> mNews.addAll(news));
         }else{
             ToastManager.getInstance().showToastById
                     (R.string.common_internet_connection_nf,this.getContext());
