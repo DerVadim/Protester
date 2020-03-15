@@ -1,7 +1,10 @@
 package com.world.protester.tools;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.world.protester.ProtesterApplication;
 import com.world.protester.wraps.NewsWrap;
 import java.util.List;
 import retrofit2.Call;
@@ -39,7 +42,7 @@ public class NewsRepository {
 
             @Override
             public void onFailure(Call<List<NewsWrap>> call, Throwable t) {
-                newsData.setValue(null);
+                Log.d(ProtesterApplication.PROTESTER,"Error getting news!");
             }
         });
         return newsData;

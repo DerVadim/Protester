@@ -22,7 +22,6 @@ import com.world.protester.tools.ToastManager;
 import com.world.protester.wraps.NewsWrap;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -44,7 +43,10 @@ public class HomeFragment extends Fragment {
          * Send request  if device has internet connection
          */
         if(ProtesterApplication.getConnectionStatus(Objects.requireNonNull(this.getContext()))){
-            mNewsViewModel.getNewsRepository().observe(this, news -> mNews.addAll(news));
+            mNewsViewModel.getNewsRepository().observe(this, news -> {
+                mNews.addAll(news);
+                this.mAdapter.notifyDataSetChanged();
+            });
         }else{
             ToastManager.getInstance().showToastById
                     (R.string.common_internet_connection_nf,this.getContext());
@@ -56,15 +58,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        if (this.mAdapter == null) {
             this.mAdapter = new AdapterNews(mNews);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             mRecyclerView.setNestedScrollingEnabled(true);
-        } else {
-            this.mAdapter.notifyDataSetChanged();
-        }
     }
 
 

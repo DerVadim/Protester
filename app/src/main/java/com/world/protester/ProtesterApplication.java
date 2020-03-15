@@ -10,6 +10,8 @@ public class ProtesterApplication extends Application {
 
     public static final String DATA_FLAG_SPLASH = "from_splash";
 
+    public static final String PROTESTER = "PROTESTER";
+
     public ProtesterApplication() {
         super();
     }
