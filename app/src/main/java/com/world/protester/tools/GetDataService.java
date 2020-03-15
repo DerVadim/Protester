@@ -1,6 +1,6 @@
 package com.world.protester.tools;
 
-import com.world.protester.wraps.NewsWrap;
+import com.world.protester.wraps.EventWrap;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ import retrofit2.http.Path;
 public interface GetDataService {
 
     @GET("data/{city}")
-    Call<List<NewsWrap>> getAllNews( @Path("city") String city);
+    Call<List<EventWrap>> getAllNews(@Path("city") String city);
 }

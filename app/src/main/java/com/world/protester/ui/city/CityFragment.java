@@ -77,7 +77,7 @@ public class CityFragment extends Fragment {
             SharedPreferencesManager.disableFirstLaunch(this.getContext());
             this.btnNext.setVisibility(View.VISIBLE);
             this.btnNext.setOnClickListener(v -> {
-                navController.navigate(R.id.nav_home);
+                navController.navigate(R.id.nav_events);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().show();
             });
 
@@ -86,7 +86,7 @@ public class CityFragment extends Fragment {
 
             currentCity=citys[0];
         }else if(this.mFromSplash)
-            navController.navigate(R.id.nav_home);
+            navController.navigate(R.id.nav_events);
 
 
         this.mAdapter = new AdaptersCitys(citys,currentCity,this.getContext());

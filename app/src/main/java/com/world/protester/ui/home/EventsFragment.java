@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,35 +14,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.world.protester.ProtesterApplication;
 import com.world.protester.R;
-import com.world.protester.adapters.AdapterNews;
+import com.world.protester.adapters.AdapterEvents;
 import com.world.protester.tools.SharedPreferencesManager;
 import com.world.protester.tools.ToastManager;
-import com.world.protester.wraps.NewsWrap;
+import com.world.protester.wraps.EventWrap;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment {
+public class EventsFragment extends Fragment {
 
-    private ArrayList<NewsWrap> mNews = new ArrayList<>();
+    private ArrayList<EventWrap> mEvents = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        NewsViewModel mNewsViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
-        mNewsViewModel.init(SharedPreferencesManager.getCurrentCity(this.getActivity()));
+        EventsViewModel mEventsViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
+        mEventsViewModel.init(SharedPreferencesManager.getCurrentCity(this.getActivity()));
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_events, container, false);
         this.mRecyclerView = root.findViewById(R.id.news_recycler_view);
 
         /**
          * Send request  if device has internet connection
          */
         if(ProtesterApplication.getConnectionStatus(Objects.requireNonNull(this.getContext()))){
-            mNewsViewModel.getNewsRepository().observe(this, news -> {
-                mNews.addAll(news);
+            mEventsViewModel.getNewsRepository().observe(this, news -> {
+                mEvents.addAll(news);
                 this.mAdapter.notifyDataSetChanged();
             });
         }else{
@@ -58,7 +56,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-            this.mAdapter = new AdapterNews(mNews);
+            this.mAdapter = new AdapterEvents(mEvents);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -8,6 +8,7 @@ import android.util.Log;
 
 public class ProtesterApplication extends Application {
 
+    public static final String BASE_URL = "http://10.0.2.2:8000/";
     public static final String DATA_FLAG_SPLASH = "from_splash";
 
     public static final String PROTESTER = "PROTESTER";

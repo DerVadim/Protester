@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.world.protester.ProtesterApplication;
-import com.world.protester.wraps.NewsWrap;
+import com.world.protester.wraps.EventWrap;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,19 +29,19 @@ public class NewsRepository {
         newsApi = RetrofitService.cteateService(GetDataService.class);
     }
 
-    public MutableLiveData<List<NewsWrap>> getNews(String key){
+    public MutableLiveData<List<EventWrap>> getNews(String key){
 
-        final MutableLiveData<List<NewsWrap>> newsData = new MutableLiveData<>();
-        newsApi.getAllNews(key).enqueue(new Callback<List<NewsWrap>>() {
+        final MutableLiveData<List<EventWrap>> newsData = new MutableLiveData<>();
+        newsApi.getAllNews(key).enqueue(new Callback<List<EventWrap>>() {
             @Override
-            public void onResponse(Call<List<NewsWrap>> call, Response<List<NewsWrap>> response) {
+            public void onResponse(Call<List<EventWrap>> call, Response<List<EventWrap>> response) {
                 if (response.isSuccessful()){
                     newsData.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<NewsWrap>> call, Throwable t) {
+            public void onFailure(Call<List<EventWrap>> call, Throwable t) {
                 Log.d(ProtesterApplication.PROTESTER,"Error getting news!");
             }
         });

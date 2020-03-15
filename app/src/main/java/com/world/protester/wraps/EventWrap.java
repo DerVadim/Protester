@@ -4,7 +4,7 @@ package com.world.protester.wraps;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NewsWrap {
+public class EventWrap {
 
     @SerializedName("title")
     @Expose

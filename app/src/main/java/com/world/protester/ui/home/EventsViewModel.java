@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.world.protester.tools.NewsRepository;
-import com.world.protester.wraps.NewsWrap;
+import com.world.protester.wraps.EventWrap;
 
 import java.util.List;
 
-public class NewsViewModel extends ViewModel {
+public class EventsViewModel extends ViewModel {
 
-    private MutableLiveData<List<NewsWrap>> mMutableLiveData;
+    private MutableLiveData<List<EventWrap>> mMutableLiveData;
     private NewsRepository mNewsRepository;
 
     public void init(String city){
@@ -21,7 +21,7 @@ public class NewsViewModel extends ViewModel {
         this.mMutableLiveData = this.mNewsRepository.getNews(city);
     }
 
-    public LiveData<List<NewsWrap>> getNewsRepository() {
+    public LiveData<List<EventWrap>> getNewsRepository() {
         return this.mMutableLiveData;
     }
 }
