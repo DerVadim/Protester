@@ -100,6 +100,7 @@
     <string name="menu_events">События</string>
     <string name="menu_city">Текущий город</string>
     <string name="menu_about">О приложении</string>
+    <string name="menu_mail">Сообщить</string>
 
 
     <string name="splash_title">Мы ищем для вас всю информацию о публичных акциях и протестах</string>
@@ -109,6 +110,12 @@
     <string name="fragment_city_title">Выбор города</string>
     <string name="fragment_city_toas">Ваш город </string>
     <string name="fragment_city_btn_next">Далее</string>
+
+    <string name="fragment_mail_text">Bla bla bla </string>
+    <string name="fragment_mail_btn">Отправить</string>
+    <string name="fragment_mail_subject_of_email">Оповищение</string>
+    <string name="fragment_mail_title_sending">Выполняеться отправка</string>
+    <string name="fragment_mail_clien_is_not_installed">На Вашем устройстве не установленны почтовые клиенты!</string>
 
     <string name="common_internet_connection_nf">Интернет соединение отсутствует!</string>
 </resources>
