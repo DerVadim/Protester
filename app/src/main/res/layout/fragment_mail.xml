@@ -13,7 +13,14 @@
             android:id="@+id/tvMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
             android:text="@string/fragment_mail_text"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="194dp"
             tools:layout_editor_absoluteY="239dp" />
 
@@ -21,8 +28,8 @@
             android:id="@+id/btnMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="false"
+            android:layout_below="@id/tvMail"
+            android:layout_centerHorizontal="true"
             android:text="@string/fragment_mail_btn"
             tools:layout_editor_absoluteX="118dp"
             tools:layout_editor_absoluteY="524dp" />

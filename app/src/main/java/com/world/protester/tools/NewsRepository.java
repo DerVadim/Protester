@@ -3,7 +3,6 @@ package com.world.protester.tools;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
-
 import com.world.protester.ProtesterApplication;
 import com.world.protester.wraps.EventWrap;
 import java.util.List;
@@ -29,20 +28,24 @@ public class NewsRepository {
         newsApi = RetrofitService.cteateService(GetDataService.class);
     }
 
-    public MutableLiveData<List<EventWrap>> getNews(String key){
+    public MutableLiveData<List<EventWrap>> getNews(String key,MutableLiveData<Boolean> isLoading){
 
         final MutableLiveData<List<EventWrap>> newsData = new MutableLiveData<>();
+        isLoading.setValue(true);
         newsApi.getAllNews(key).enqueue(new Callback<List<EventWrap>>() {
             @Override
             public void onResponse(Call<List<EventWrap>> call, Response<List<EventWrap>> response) {
                 if (response.isSuccessful()){
                     newsData.setValue(response.body());
+                    isLoading.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<List<EventWrap>> call, Throwable t) {
                 Log.d(ProtesterApplication.PROTESTER,"Error getting news!");
+                newsData.setValue(null);
+                isLoading.setValue(false);
             }
         });
         return newsData;

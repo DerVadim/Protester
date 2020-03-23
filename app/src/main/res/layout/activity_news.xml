@@ -46,13 +46,13 @@ android:orientation="vertical">
         android:layout_below="@id/rlNewsTitleSection"
         android:scrollbars="vertical"
         android:fillViewport="true">
+
         <TextView
             android:id="@+id/tvText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:scrollHorizontally="true"
-            android:text="@string/large_text"
             android:textSize="18sp" />
     </ScrollView>
 </RelativeLayout>

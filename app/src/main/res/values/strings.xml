@@ -112,12 +112,17 @@
     <string name="fragment_city_btn_next">Next</string>
 
 
-    <string name="fragment_mail_text">Bla bla bla </string>
+    <string name="fragment_mail_text">Please, send to us information about your protest and we try to publish. In letter you should point place of protest, time of start and description</string>
     <string name="fragment_mail_btn">Send</string>
     <string name="fragment_mail_subject_of_email">Оповищение</string>
     <string name="fragment_mail_title_sending">Send mail...</string>
     <string name="fragment_mail_clien_is_not_installed">There are no email clients installed.</string>
 
+
+    <string name="fragment_about_text">The project was created on enthusiasm and hatred of Putin\'s government. The client is open source and can be compiled by anyone from the source: \nhttps://github.com/DerVadim/Protester.</string>
+
     <string name="common_internet_connection_nf">Internet connection is not found!</string>
+
+    <string name="common_error_get_data">Couldn\'t get data!</string>
 
 </resources>

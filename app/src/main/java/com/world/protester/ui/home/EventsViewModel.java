@@ -11,6 +11,12 @@ import java.util.List;
 public class EventsViewModel extends ViewModel {
 
     private MutableLiveData<List<EventWrap>> mMutableLiveData;
+
+    private final MutableLiveData<Boolean> mIsLoading=new MutableLiveData<>();
+    public LiveData<Boolean> getIsLoading(){
+        return this.mIsLoading;
+    }
+
     private NewsRepository mNewsRepository;
 
     public void init(String city){
@@ -18,7 +24,7 @@ public class EventsViewModel extends ViewModel {
             return;
         }
         this.mNewsRepository = NewsRepository.getInstance();
-        this.mMutableLiveData = this.mNewsRepository.getNews(city);
+        this.mMutableLiveData = this.mNewsRepository.getNews(city, mIsLoading);
     }
 
     public LiveData<List<EventWrap>> getNewsRepository() {
