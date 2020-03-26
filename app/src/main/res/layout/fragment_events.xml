@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sflEvents"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvEventError"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:visibility="gone" />
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--    <TextView-->
+<!--        android:id="@+id/tvEventError"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="gone" />-->
+<!--    </ScrollView>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tvEventError">
+        android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-    <ProgressBar
-        android:id="@+id/pbEvent"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-</android.widget.RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

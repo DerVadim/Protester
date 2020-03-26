@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.world.protester.ProtesterApplication;
 import com.world.protester.R;
@@ -30,19 +33,20 @@ public class EventsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private TextView mTvEventError;
-    private ProgressBar mProgressBar;
-
+    private SwipeRefreshLayout sflEvents;
+    private EventsViewModel mEventsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        EventsViewModel mEventsViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
-        mEventsViewModel.init(SharedPreferencesManager.getCurrentCity(this.getActivity()));
+        this.mEventsViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
+        this.mEventsViewModel.getEvents(SharedPreferencesManager.getCurrentCity(this.getActivity()));
 
         View root = inflater.inflate(R.layout.fragment_events, container, false);
         this.mRecyclerView = root.findViewById(R.id.news_recycler_view);
-        this.mTvEventError=root.findViewById(R.id.tvEventError);
-        this.mProgressBar=root.findViewById(R.id.pbEvent);
+        //this.mTvEventError=root.findViewById(R.id.tvEventError);
+        this.sflEvents = root.findViewById(R.id.sflEvents);
+
 
         /**
          * Send request  if device has internet connection
@@ -63,22 +67,36 @@ public class EventsFragment extends Fragment {
         }
 
         mEventsViewModel.getIsLoading().observe(this,Flag-> {
+
+            Log.d("LOADING","Change observe"+String.valueOf(Flag));
             if(Flag){
-                mProgressBar.setVisibility(View.VISIBLE);
+                this.sflEvents.setRefreshing(true);
             }else{
-                mProgressBar.setVisibility(View.INVISIBLE);
+                this.sflEvents.setRefreshing(false);
             }
 
         });
 
         setupRecyclerView();
 
+
+
+
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.d("LOADING",String.valueOf(mEventsViewModel.getIsLoading().getValue()));
+
+        this.sflEvents.setRefreshing(mEventsViewModel.getIsLoading().getValue());
+    }
+
     private void showErrorMessege(String text){
-        this.mTvEventError.setText(text);
-        this.mTvEventError.setVisibility(View.VISIBLE);
+//        this.mTvEventError.setText(text);
+//        this.mTvEventError.setVisibility(View.VISIBLE);
     }
 
     private void setupRecyclerView() {
@@ -87,6 +105,11 @@ public class EventsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setNestedScrollingEnabled(true);
+
+        this.sflEvents.setOnRefreshListener(() -> {
+            Log.d("LOADING","OnRefreshListener");
+            mEventsViewModel.getEvents(SharedPreferencesManager.getCurrentCity(getActivity()));
+    });
 
     }
 

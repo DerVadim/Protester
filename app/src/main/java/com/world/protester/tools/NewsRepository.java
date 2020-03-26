@@ -32,6 +32,7 @@ public class NewsRepository {
 
         final MutableLiveData<List<EventWrap>> newsData = new MutableLiveData<>();
         isLoading.setValue(true);
+        Log.d("LOADING","getNews"+String.valueOf(isLoading.getValue()));
         newsApi.getAllNews(key).enqueue(new Callback<List<EventWrap>>() {
             @Override
             public void onResponse(Call<List<EventWrap>> call, Response<List<EventWrap>> response) {
