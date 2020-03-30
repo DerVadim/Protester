@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,7 @@ public class CityFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private String[] citys = {"Moscow", "SPB"};
+    private String[] citys = {"Moscow", "Saint Petersburg"};
 
     private boolean mFromSplash = false;
 
@@ -59,6 +60,7 @@ public class CityFragment extends Fragment {
 
         }catch (NullPointerException e){
             Log.d(this.getClass().getName(),"Error extract data from main activity");
+            this.mFromSplash=false;
         }
 
 
@@ -85,8 +87,9 @@ public class CityFragment extends Fragment {
             SharedPreferencesManager.setCurrentCity(this.getContext(),citys[0]);
 
             currentCity=citys[0];
-        }else if(this.mFromSplash)
-            navController.navigate(R.id.nav_events);
+        }else if(this.mFromSplash) {
+            navController.navigate(R.id.action_goToEvents);
+        }
 
 
         this.mAdapter = new AdaptersCitys(citys,currentCity,this.getContext());

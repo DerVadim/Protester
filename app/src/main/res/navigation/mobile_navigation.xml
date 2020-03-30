@@ -21,7 +21,14 @@
         android:id="@+id/nav_city"
         android:name="com.world.protester.ui.city.CityFragment"
         android:label="@string/menu_city"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_goToEvents"
+            app:destination="@id/nav_events"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_mail"

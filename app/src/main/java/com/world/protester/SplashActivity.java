@@ -21,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
 
                 Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
                 mainIntent.putExtra(ProtesterApplication.DATA_FLAG_SPLASH, true);
-
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }

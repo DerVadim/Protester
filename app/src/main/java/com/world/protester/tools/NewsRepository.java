@@ -28,9 +28,8 @@ public class NewsRepository {
         newsApi = RetrofitService.cteateService(GetDataService.class);
     }
 
-    public MutableLiveData<List<EventWrap>> getNews(String key,MutableLiveData<Boolean> isLoading){
+    public MutableLiveData<List<EventWrap>> getNews(String key,MutableLiveData<List<EventWrap>> newsData, MutableLiveData<Boolean> isLoading){
 
-        final MutableLiveData<List<EventWrap>> newsData = new MutableLiveData<>();
         isLoading.setValue(true);
         Log.d("LOADING","getNews"+String.valueOf(isLoading.getValue()));
         newsApi.getAllNews(key).enqueue(new Callback<List<EventWrap>>() {

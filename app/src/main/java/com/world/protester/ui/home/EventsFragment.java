@@ -5,13 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +28,6 @@ public class EventsFragment extends Fragment {
     private ArrayList<EventWrap> mEvents = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private TextView mTvEventError;
     private SwipeRefreshLayout sflEvents;
     private EventsViewModel mEventsViewModel;
 
@@ -40,33 +35,23 @@ public class EventsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         this.mEventsViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
-        this.mEventsViewModel.getEvents(SharedPreferencesManager.getCurrentCity(this.getActivity()));
+
 
         View root = inflater.inflate(R.layout.fragment_events, container, false);
         this.mRecyclerView = root.findViewById(R.id.news_recycler_view);
-        //this.mTvEventError=root.findViewById(R.id.tvEventError);
         this.sflEvents = root.findViewById(R.id.sflEvents);
-
+        //this.getParentFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         /**
          * Send request  if device has internet connection
          */
         if(ProtesterApplication.getConnectionStatus(Objects.requireNonNull(this.getContext()))){
-            mEventsViewModel.getNewsRepository().observe(this, news -> {
-
-                if(news==null || news.isEmpty()) {
-                    showErrorMessege(getString(R.string.common_error_get_data));
-                }else {
-                    mEvents.addAll(news);
-                    this.mAdapter.notifyDataSetChanged();
-                }
-
-            });
+            this.getEvents();
         }else{
             showErrorMessege(getString(R.string.common_internet_connection_nf));
         }
 
-        mEventsViewModel.getIsLoading().observe(this,Flag-> {
+        mEventsViewModel.getIsLoading().observe(getViewLifecycleOwner(),Flag-> {
 
             Log.d("LOADING","Change observe"+String.valueOf(Flag));
             if(Flag){
@@ -77,10 +62,19 @@ public class EventsFragment extends Fragment {
 
         });
 
+        mEventsViewModel.getNewsRepository().observe(getViewLifecycleOwner(), news -> {
+
+            if(news==null || news.isEmpty()) {
+                showErrorMessege(getString(R.string.common_error_get_data));
+            }else {
+                mEvents.clear();
+                mEvents.addAll(news);
+                this.mAdapter.notifyDataSetChanged();
+            }
+
+        });
+
         setupRecyclerView();
-
-
-
 
         return root;
     }
@@ -89,14 +83,18 @@ public class EventsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        Log.d("LOADING",String.valueOf(mEventsViewModel.getIsLoading().getValue()));
-
+        Log.d("LOADING", String.valueOf(mEventsViewModel.getIsLoading().getValue()));
         this.sflEvents.setRefreshing(mEventsViewModel.getIsLoading().getValue());
     }
 
     private void showErrorMessege(String text){
 //        this.mTvEventError.setText(text);
 //        this.mTvEventError.setVisibility(View.VISIBLE);
+    }
+
+    private void getEvents(){
+        this.mEventsViewModel.getEvents(SharedPreferencesManager.getCurrentCity(this.getActivity()));
+
     }
 
     private void setupRecyclerView() {
@@ -108,7 +106,7 @@ public class EventsFragment extends Fragment {
 
         this.sflEvents.setOnRefreshListener(() -> {
             Log.d("LOADING","OnRefreshListener");
-            mEventsViewModel.getEvents(SharedPreferencesManager.getCurrentCity(getActivity()));
+           this.getEvents();
     });
 
     }

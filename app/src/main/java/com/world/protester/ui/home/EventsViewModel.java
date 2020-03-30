@@ -10,9 +10,9 @@ import java.util.List;
 
 public class EventsViewModel extends ViewModel {
 
-    private MutableLiveData<List<EventWrap>> mMutableLiveData;
+    private MutableLiveData<List<EventWrap>> mMutableLiveData = new MutableLiveData<>();
 
-    private final MutableLiveData<Boolean> mIsLoading=new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mIsLoading=new MutableLiveData<>(false);
     public LiveData<Boolean> getIsLoading(){
         return this.mIsLoading;
     }
@@ -20,11 +20,10 @@ public class EventsViewModel extends ViewModel {
     private NewsRepository mNewsRepository;
 
     public void getEvents(String city){
-        if (this.mMutableLiveData != null){
-            return;
-        }
-        this.mNewsRepository = NewsRepository.getInstance();
-        this.mMutableLiveData = this.mNewsRepository.getNews(city, mIsLoading);
+        if (this.mNewsRepository == null)
+            this.mNewsRepository = NewsRepository.getInstance();
+
+        this.mNewsRepository.getNews(city,this.mMutableLiveData, this.mIsLoading);
     }
 
 
