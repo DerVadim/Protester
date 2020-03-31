@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="false"
-        android:layout_margin="5dp"
         android:background="@color/colorGrey"
         android:scaleType="centerCrop"
         tools:srcCompat="@mipmap/ic_launcher" />
@@ -28,5 +27,14 @@
         android:text="TextView!!!!!!!!!!!!!!"
         android:textColor="@android:color/white"
         android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorEventDatePanel"
+        android:gravity="center"
+        android:text="13 сентября "
+        android:textColor="@color/colorEventDateText" />
 
 </RelativeLayout>

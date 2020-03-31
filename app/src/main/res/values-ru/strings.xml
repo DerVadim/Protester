@@ -19,6 +19,17 @@
     <string name="splash_year">2020</string>
 
 
+    <string name="fragment_events_today">Сегодня</string>
+    <string name="fragment_events_tomorrow">Завтра</string>
+    <string name="fragment_events_this_monday">В понедельник</string>
+    <string name="fragment_events_this_tuesday">Во вторник</string>
+    <string name="fragment_events_this_wednesday">В среду</string>
+    <string name="fragment_events_this_thursday">В четверг</string>
+    <string name="fragment_events_this_friday">В пятницу</string>
+    <string name="fragment_events_this_saturday">В субботу</string>
+    <string name="fragment_events_this_sunday">В воскресенье</string>
+    <string name="fragment_events_ended">Завершилось</string>
+
     <string name="fragment_city_title">Выбор города</string>
     <string name="fragment_city_toas">Ваш город </string>
     <string name="fragment_city_btn_next">Далее</string>

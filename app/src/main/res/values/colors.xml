@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorGrey">#777777</color>
+    <color name="colorEventDatePanel">#80000000</color>
+    <color name="colorEventDateText">#FFFFFF</color>
 
 </resources>

@@ -6,15 +6,23 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 public class ProtesterApplication extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.3:8000/";
+    public static final String BASE_URL = "http://192.168.1.4:8000/";
     public static final String DATA_FLAG_SPLASH = "from_splash";
 
     public static final String PROTESTER = "PROTESTER";
 
     public ProtesterApplication() {
         super();
+
+    }
+
+    @Override public void onCreate() {
+        super.onCreate();
+        AndroidThreeTen.init(this);
     }
 
     public static boolean getConnectionStatus(Context context) {

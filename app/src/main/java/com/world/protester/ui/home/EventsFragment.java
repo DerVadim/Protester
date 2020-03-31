@@ -36,11 +36,9 @@ public class EventsFragment extends Fragment {
 
         this.mEventsViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
 
-
         View root = inflater.inflate(R.layout.fragment_events, container, false);
         this.mRecyclerView = root.findViewById(R.id.news_recycler_view);
         this.sflEvents = root.findViewById(R.id.sflEvents);
-        //this.getParentFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         /**
          * Send request  if device has internet connection
@@ -98,7 +96,7 @@ public class EventsFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        this.mAdapter = new AdapterEvents(mEvents);
+        this.mAdapter = new AdapterEvents(mEvents,getResources());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
