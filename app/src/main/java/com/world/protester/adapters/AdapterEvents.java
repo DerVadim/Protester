@@ -23,6 +23,7 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.Period;
 import org.threeten.bp.format.DateTimeParseException;
+import org.threeten.bp.format.FormatStyle;
 import org.threeten.bp.temporal.ChronoField;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -31,7 +32,6 @@ public class AdapterEvents extends RecyclerView.Adapter<AdapterEvents.NewsViewHo
     private ArrayList<EventWrap> mDataset;
 
     private Resources mResources;
-
 
     static class NewsViewHolder extends RecyclerView.ViewHolder {
 
@@ -96,7 +96,7 @@ public class AdapterEvents extends RecyclerView.Adapter<AdapterEvents.NewsViewHo
         try {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate date = LocalDate.parse("05-04-2020", formatter);
+            LocalDate date = LocalDate.parse("05-05-2020", formatter);
 
             LocalDate dateNow = LocalDate.now();
 
@@ -110,7 +110,7 @@ public class AdapterEvents extends RecyclerView.Adapter<AdapterEvents.NewsViewHo
             }else{
 
                 Period period = Period.between(dateNow, date);
-                int diff = period.getDays();
+                int diff = period.getDays()+period.getMonths()*30;
 
                 if( diff <7) {
                     DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
@@ -132,8 +132,7 @@ public class AdapterEvents extends RecyclerView.Adapter<AdapterEvents.NewsViewHo
                     }
                 }
             }
-
-            return date.toString();
+            return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
 
         }catch (DateTimeParseException e){
             Log.d(ProtesterApplication.PROTESTER,"Error parsing date!");
